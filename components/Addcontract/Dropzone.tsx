@@ -1,78 +1,98 @@
 import { DropzoneOptions, useDropzone } from "react-dropzone";
-import { Modal } from "@mui/material";
+import { Box, Modal, Typography } from "@mui/material";
+import { makeStyles } from "@material-ui/core/styles";
 import styled from "@emotion/styled";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useState } from "react";
-import { Close } from "@material-ui/icons";
 
 const StyledModal = styled(Modal)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 `;
 
 const StyledModalContainer = styled.div`
-  background-color: white;
-  width: 700px;
-  height: 400px;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+	background-color: white;
+	width: 700px;
+	height: 400px;
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 `;
 
 const StyledDropzoneContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
 `;
 
 const CloudIcon = styled(CloudUploadIcon)`
-  width: 150px;
-  height: 150px;
+	width: 150px;
+	height: 150px;
 `;
 
-const FileDropzone = (
-  props: DropzoneOptions & { open: boolean; handleClose: () => void }
-) => {
-  const { getRootProps, getInputProps } = useDropzone();
+const useStyles = makeStyles((theme: any) => ({
+	text3xl: {
+		textAlign: "center",
+		fontSize: "30px",
+		lineHeight: " 36px ",
+	},
+	borderDoted: {
+		padding: "16px 20px",
+		border: "2px dotted #000",
+	},
+	flex: {
+		display: "flex",
+		justifyContent: "center",
+	},
+	browse: {
+		padding: "12px",
+		background: "#cbd5e0",
+		borderRadius: "12px",
+	},
+}));
 
-  const [fileName, setFileName] = useState("");
+const FileDropzone = (props: DropzoneOptions & { open: boolean; handleClose: () => void }) => {
+	const { getRootProps, getInputProps } = useDropzone();
 
-  const { open, handleClose } = props;
+	const [fileName, setFileName] = useState("");
 
-  const handleFileChange = (event: any) => {
-    const file = event.target.files[0];
-    if (file) {
-      setFileName(file.name);
-    }
-  };
+	const { open, handleClose } = props;
 
-  return (
-    <StyledModal open={open} onClose={handleClose}>
-      <StyledModalContainer>
-        <h2 className="text-center text-3xl">Upload Contract</h2>
-        <StyledDropzoneContainer {...getRootProps()}>
-          <input {...getInputProps({ onChange: handleFileChange })} />
-          <div className="border-dotted border-black border-2 px-5 py-4 ">
-            <p>Drag and drop your files here, or click to select files</p>
-            <div className="flex justify-center">
-              <CloudIcon />
-            </div>
-            <div className="flex justify-center">
-              <button className="bg-gray-400 px-3 py-3 rounded-xl ">
-                Browse Files
-              </button>
-            </div>
-            <p>Selected file: {fileName}</p>
-          </div>
-        </StyledDropzoneContainer>
-      </StyledModalContainer>
-    </StyledModal>
-  );
+	const handleFileChange = (event: any) => {
+		const file = event.target.files[0];
+		if (file) {
+			setFileName(file.name);
+		}
+	};
+
+	const classes = useStyles();
+	return (
+		<StyledModal open={open} onClose={handleClose}>
+			<StyledModalContainer>
+				<Typography component="h2" variant="h2" className={classes.text3xl}>
+					Upload Contract
+				</Typography>
+				<StyledDropzoneContainer {...getRootProps()}>
+					<input {...getInputProps({ onChange: handleFileChange })} />
+					<Box className={classes.borderDoted}>
+						<p>Drag and drop your files here, or click to select files</p>
+						<Box className={classes.flex}>
+							<CloudIcon />
+						</Box>
+						<Box className={classes.flex}>
+							<button className={classes.browse}>Browse Files</button>
+						</Box>
+						<p>Selected file: {fileName}</p>
+					</Box>
+				</StyledDropzoneContainer>
+			</StyledModalContainer>
+		</StyledModal>
+	);
 };
 
 export default FileDropzone;

@@ -31,8 +31,8 @@ const useStyles = makeStyles((theme) => ({
 	},
 	actions: {
 		display: "flex",
-		flexDirection: "column"
-	}
+		flexDirection: "column",
+	},
 }));
 
 const Signin: React.FC = () => {
@@ -46,19 +46,26 @@ const Signin: React.FC = () => {
 				</Grid>
 				<Grid item xs={12} sm={6}>
 					<Box className={classes.buttonContainer}>
-						<Box className={classes.welcomeText} style={{color:'black', paddingLeft:"8px"}}>
+						<Box className={classes.welcomeText} style={{ color: "black", paddingLeft: "8px" }}>
 							<Typography variant="h4">I am ...</Typography>
 							<Typography variant="h6">Please select your role</Typography>
 						</Box>
 						<Box className={classes.actions}>
-							<Button variant="contained" size="large" style={{color: "white", width: "270px", backgroundColor: "grey", marginBottom: theme.spacing(3)}}>
+							<Button
+								variant="contained"
+								size="large"
+								style={{ color: "white", width: "270px", backgroundColor: "grey", marginBottom: theme.spacing(3) }}
+							>
 								Contractor
 							</Button>
-							<Button variant="contained" size="large" style={{color: "white", width: "270px", backgroundColor: "grey"}}>
+							<Button
+								variant="contained"
+								size="large"
+								style={{ color: "white", width: "270px", backgroundColor: "grey" }}
+							>
 								PublicBody
 							</Button>
 						</Box>
-
 					</Box>
 				</Grid>
 			</Grid>
